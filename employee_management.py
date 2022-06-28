@@ -40,10 +40,10 @@ class Employee:
             if emp.email == get_employee_by_email:
                 return emp
 
-    def create_post(self):
+    def create_post(self, body= ""):
         # Administrators are only ones whom CANNOT create posts
         if self.role.id != 1:
-            post_body = input("Create a new post: ")
+            post_body = input("Create a new post: ") if not body else body
             new_post = Post(post_body, self.email)
             self.posts.append(new_post)
         else:

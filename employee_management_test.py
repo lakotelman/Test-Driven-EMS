@@ -1,5 +1,6 @@
 from employee_management import Role, Employee, Manager, Supervisor, Post
 import unittest
+from unittest.mock import patch
 
 
 class TestEms(unittest.TestCase):
@@ -28,14 +29,15 @@ class TestEms(unittest.TestCase):
         m.remove_employee(e.email)
         self.assertFalse(m.employees)
 
-    def test_supervisor(self):
+    @patch('builtins.print')
+    def test_supervisor(self, mock_print):
         s = Supervisor("Galadriel", "Lothlórien")
         s.create_post()
-        #! Output shows correct string
+        mock_print.assert_called_with("Sorry, Administrator do not have Post priveleges")
 
     def test_employee_post(self):
         e = Employee("Samwise", "Gamgee")
-        e.create_post() #! in this case I still have to input into terminal
+        e.create_post("Hello?") #! added argument body = "" to the function
         self.assertTrue(e.posts)
 
     def test_get_emp_by_email(self):
